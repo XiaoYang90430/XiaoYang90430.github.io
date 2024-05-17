@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue3.js"></script>
+</head>
+
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: o;
+        }
+
+
+        body {
+            background-color: rgb(246, 246, 246);
+        }
+
+        .nav {
+            height: 100px;
+            width: 1440px;
+            border-bottom: 2px solid rgb(224, 146, 0);
+        }
+
+        .tab {
+            margin-top: 30px;
+            height: 550px;
+            background-color: white;
+        }
+
+        .las {
+            margin-top: 20px;
+            height: 50px;
+            background-color: white;
+        }
+
+        .logo {
+            margin-left: 150px;
+            width: 100px;
+            height: 48px;
+        }
+
+        .clearboth1 {
+            height: 25px;
+        }
+
+        .clearboth2 {
+            width: 120px;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .title>h2 {
+            font-size: 28px;
+            font-weight: 400;
+            color: #424242;
+        }
+
+        .title>p {
+            margin: 20px 0px 0px 15px;
+            font-size: 12px;
+            color: #757575;
+        }
+
+        .name {
+            margin-left: 450px
+        }
+
+        .name span {
+            font-size: 12px;
+            color: #757575;
+        }
+
+        a {
+            text-decoration: none;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+
+        .name span:hover {
+            color: orange;
+        }
+
+        .shop {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            height: 70px;
+            border-bottom: 1px solid rgb(203, 203, 203);
+        }
+
+        .tab {
+            width: 1226px;
+            margin-left: 140px;
+            height: 500rpx;
+            overflow-y: scroll;
+        }
+
+        .tab::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        .list-1 {
+            width: 110px;
+        }
+
+        .list-2 {
+            width: 380px;
+        }
+
+        .list-3 {
+            width: 158px;
+            text-align: center;
+        }
+
+        .list-4 {
+            width: 150px;
+            text-align: center;
+        }
+
+        .list-5 {
+            width: 201px;
+            text-align: center;
+        }
+
+        .list-6 {
+            width: 80px;
+            text-align: center;
+        }
+
+        .shop-list {
+            height: 116px;
+            border-bottom: 1px solid rgb(203, 203, 203);
+            display: flex;
+            align-items: center;
+        }
+
+        .shoplist {
+            height: 85px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .shop-list-4 {
+            width: 150px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-style: solid;
+            border-width: 0.5px 0.5px 0.5px 0.5px;
+            border-color: rgb(203, 203, 203);
+        }
+
+        .input-1 {
+            width: 72px;
+            height: 36px;
+            border: none;
+            text-align: center;
+
+        }
+
+        .shop-list-4 button {
+            height: 38px;
+            width: 38px;
+            background: none;
+            border: none;
+        }
+
+        .shop-list-4 button:hover {
+            background-color: rgb(203, 203, 203);
+        }
+
+        .images {
+            height: 80px;
+            width: 80px;
+        }
+
+        .check {
+            margin-left: 20px;
+        }
+
+        .iconfont {
+            margin-left: 30px;
+            background-image: url("./img/删除.png");
+            height: 16px;
+            width: 16px;
+            background-size: 16px 16px;
+        }
+
+        .iconfont:hover {
+            background-image: url("./img/删除1.png");
+            height: 20px;
+            width: 20px;
+            background-size: 20px 20px;
+        }
+
+        .las {
+            width: 1226px;
+            margin-left: 140px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+    </style>
+
+    <div id="app">
+        <div class="nav">
+            <div class="clearboth1"></div>
+            <div class="header">
+                <div class="logo">
+                    <i><img src="./img/mi.png" alt="" style="height: 48px;"></i>
+                </div>
+                <div class="title">
+                    <h2>我的购物车</h2>
+                    <p>温馨提示：产品是否购买成功，以最终下单为准哦，请尽快结算</p>
+                </div>
+                <div class="name">
+                    <a href=""><span>小阳</span></a>
+                    <span>|</span>
+                    <a href=""><span>我的订单</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="tab">
+            <div class="shop">
+                <div class="list-1"><input type="checkbox" class="check" v-model="isSelectedAll"
+                        @change="selectAll"><span>全选</span></div>
+                <div class="clearboth2"></div>
+                <div class="list-2">商品名称</div>
+                <div class="list-3">单价</div>
+                <div class="list-4">数量</div>
+                <div class="list-5">小计</div>
+                <div class="list-6">操作</div>
+            </div>
+            <div class="shop-list" v-for="s,index in shopList" :key="s.id">
+                <div class="shoplist">
+                    <div class="list-1"><input type="checkbox" class="check" v-model="s.checkbox"
+                            @change="checkSelectAll"></div>
+                    <div class="clearboth2"><img :src="s.img" alt="" class="images"></div>
+                    <div class="list-2">{{s.name}}</div>
+                    <div class="list-3">{{s.price}}元</div>
+                    <div class="list-4">
+                        <div class="shop-list-4"><button @click="add(index)">+</button></span><input v-model="s.count"
+                                class="input-1" type="text"><span><button @click="reduce(index)">-</button></div>
+                    </div>
+                    <div class="list-5" style="color:orangered">{{publishprice(s)}}元</div>
+                    <div class="list-6">
+                        <div class="iconfont" @click="removeItem(index)"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="las">
+            <div>
+                <p style="color:orange ;font-size:24px ;width:200px">总价：{{ publishtotal }}</p>
+            </div>
+            <div>
+                <div
+                    style="width: 100px;height: 50px;background: orange; color:white;display: flex; justify-content: center;align-items: center; margin-left: 900px;">
+                    去结算</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    shopList: [{ id: "01", img: "./img/牙刷.webp", name: "米家声波电动牙刷T200  蓝色 米家声波电动牙刷T200", price: "79", count: "0", checkbox: "flase" },
+                    { id: "02", img: "./img/灯.webp", name: "小米商城定制落日灯  白色", price: "169", count: "0", checkbox: "flase" },
+                    { id: "03", img: "./img/软管.webp", name: "米家即热饮水机S1抽水软管  白色", price: "24", count: "0", checkbox: "flase" },
+                    { id: "04", img: "./img/音箱.webp", name: "小米小爱音箱Play 增强版  黑色", price: "129", count: "0", checkbox: "flase" },
+                    { id: "05", img: "./img/体脂称.jpg", name: "小米体重秤2  白色", price: "69", count: "0" },
+                    { id: "06", img: "./img/吹风机.webp", name: "米家便携吹风机H101  白色", price: "79", count: "0", checkbox: "flase" },
+                    { id: "07", img: "./img/路由器.jpg", name: "小米路由器AX6000  黑色", price: "429", count: "0", checkbox: "flase" }
+                    ]
+                    ,
+                    isSelectedAll: false,
+                }
+            },
+            methods: {
+                publishprice(shopList) {
+                    return shopList.price * shopList.count;
+                },
+                selectAll() {
+                    this.shopList.forEach(item => {
+                        item.checkbox = this.isSelectedAll;
+                    });
+                },
+                checkSelectAll() {
+                    this.isSelectedAll = this.shopList.every(item => item.checkbox);
+                },
+                add(index) {
+                    this.shopList[index].count++;
+                },
+                reduce(index) {
+                    if (this.shopList[index].count > 0) {
+                        this.shopList[index].count--;
+                    }
+                },
+                removeItem(index) {
+                    this.shopList.splice(index, 1);
+                }
+            },
+            computed: {
+                publishtotal(s) {
+                    let total = 0;
+                    this.shopList.forEach(item => {
+                        if (item.checkbox) {
+                            total += item.price * item.count;
+                        }
+                    });
+                    return total;
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+
+</html>
