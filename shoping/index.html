@@ -325,7 +325,7 @@
                 publishtotal(s) {
                     let total = 0;
                     this.shopList.forEach(item => {
-                        if (item.checkbox) {
+                        if (item.checkbox == true) {
                             total += item.price * item.count;
                         }
                     });
