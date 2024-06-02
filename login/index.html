@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue3.js"></script>
+</head>
+
+<body style="background: whitesmoke;">
+    <div id="app">
+        <div class="main">
+            <div class="aside">
+                <img src="./img/banner.jpg" alt="" class="img1">
+            </div>
+            <div class="content">
+                <div class="nav">
+                    <div class="layout">
+                        <div class="logo">
+                            <div style="height: 40px;height: 40px;">
+                                <img src="img/icon-小米归属 .png" style="width: 100%;
+                                height: 100%;
+                                object-fit: cover;">
+                            </div>
+                            <div style="font-size:26px;margin-left: 10px;">小米账号</div>
+                        </div>
+                        <div class="header">
+                            <div class="link-a">
+                                <a href="">用户协议</a>
+                                <a href="">隐私政策</a>
+                                <a href="">帮助中心</a>
+                            </div>
+                            <span style="margin: 0px 10px">|</span>
+                            <div class="language">
+                                中文(简体)</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-mi">
+                    <div class="card">
+                        <div class="tabs">
+                            <div class="login" v-if="isLogin">
+                                <div class="tabs-nav">
+                                    <div class="tabs-nav-a">
+                                        <div class="tabs-nav-a-1">
+                                            <div><a href="#" style="border-bottom: 4px solid orangered;">登录</a></div>
+                                        </div>
+                                        <div class="tabs-nav-a-2">
+                                            <div><a href="#" @click="togglePage" style="color: #AAAAAA;">注册</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tabs-form">
+                                    <div class="formField">
+                                        <input required="" type="text" />
+                                        <label>邮箱/手机号码/小米ID</label>
+                                    </div>
+                                    <div class="formField">
+                                        <input type="password" required="">
+                                        <label>密码</label>
+                                    </div>
+                                    <div class="check">
+                                        <input type="checkbox" name="" id="">
+                                        <span>已阅读并同意小米账号<a href="">用户协议</a>和<a href="">隐私策略</a></span>
+                                    </div>
+                                    <div class="btn"><button>登录</button></div>
+                                    <div class="btn-a">
+                                        <a href="">忘记密码？</a>
+                                        <a href="">手机号登录</a>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="other">其他登录方式</div>
+                                    <div class="other-logo">
+                                        <div><a href=""><img src="img/支付宝.png" alt=""></a></div>
+                                        <div><a href=""><img src="img/微信.png" alt=""></a></div>
+                                        <div><a href=""><img src="img/QQ.png" alt=""></a></div>
+                                        <div><a href=""><img src="img/微博.png" alt=""></a></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="register" v-else>
+                                <div class="tabs-nav">
+                                    <div class="tabs-nav-a">
+                                        <div class="tabs-nav-a-1">
+                                            <div><a href="#" @click="togglePage" style="color: #AAAAAA;">登录</a></div>
+                                        </div>
+                                        <div class="tabs-nav-a-2">
+                                            <div><a href="#" style="border-bottom: 4px solid orangered;">注册</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tabs-form">
+                                    <div class="formField">
+                                        <input required="" type="text" v-model="city" />
+                                        <label>国家/地区</label>
+                                    </div>
+                                    <div class="formField">
+                                        <input type="text" required="" v-model="number">
+                                        <label>手机号</label>
+                                    </div>
+                                    <div class="formField1">
+                                        <div>
+                                            <input type="password" required="" v-model="code">
+                                            <label>请输入验证码</label>
+                                        </div>
+                                        <div><button @click="generateCode">获取验证码</button></div>
+                                    </div>
+                                    <div class="check">
+                                        <input type="checkbox" name="" id="">
+                                        <span>已阅读并同意小米账号<a href="">用户协议</a>和<a href="">隐私策略</a></span>
+                                    </div>
+                                    <div class="btn"><button @click="save" >注册</button></div>
+                                    <div class="btn-a">
+                                        <a href="">收不到验证码？</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <span>小米公司版权所有-京ICP备10046444-</span><a href=""
+                        style="color: #999999;font-size: 12px;">京公网安备11010802020134号</a><span>-京ICP证110507号</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        const { ref } = Vue
+        const app = Vue.createApp({
+            setup() {
+                const isLogin = ref(true);
+                const city = ref('');
+                const number = ref('');
+                const code = ref('')
+                const generatedCode = ref('')
+
+                const togglePage = () => {
+                    isLogin.value = !isLogin.value;
+                };
+
+                const generateCode = () => {
+                    // 生成6位数字验证码
+                    generatedCode.value = Math.floor(100000 + Math.random() * 900000).toString();
+                    alert(generatedCode.value)
+                };
+
+                const save = () => {
+                    if (city.value && number.value && code.value === generatedCode.value) {
+                        alert("注册成功")
+                    }
+                    else {
+                        alert('信息有误，信息不完整')
+                    }
+                }
+
+                return {
+                    isLogin, togglePage, city, number, save, code, generateCode, generatedCode
+                }
+            }
+        })
+        app.mount('#app')
+    </script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            color: black;
+            text-decoration: none;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+        }
+
+        .aside {
+            flex: 2;
+        }
+
+        .img1 {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            flex: 6;
+            display: flex;
+            flex-direction: column;
+
+        }
+
+        .nav {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        .form-mi {
+            margin: 20px 0px 0px;
+            height: 587px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer {
+            text-align: center;
+            height: 20px;
+            margin: 40px 0px 0px;
+            color: #999999;
+            font-size: 12px;
+        }
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .header {
+            display: flex;
+            height: 40px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .layout {
+            width: 100%;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .link-a {
+            height: 40px;
+        }
+
+        .link-a a {
+            font-size: 14px;
+            font-weight: bold;
+            color: #838383;
+            width: 56px;
+            line-height: 40px;
+            margin: 0px 10px;
+        }
+
+        .link-a a:hover {
+            color: orange
+        }
+
+        .language {
+            line-height: 40px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #838383;
+            width: 80px;
+            text-align: center;
+        }
+
+        .language:hover {
+            color: orange;
+        }
+
+        .tabs {
+            width: 360px;
+            margin: 45px 45px 45px;
+        }
+
+        .tabs-nav {
+            height: 41px;
+            padding: 0px 0px 20px;
+        }
+
+        .tabs-nav-a {
+            width: 128px;
+            height: 41px;
+            display: flex;
+            flex-direction: row;
+
+        }
+
+        .tabs-nav-a-1 {
+            width: 64px;
+            height: 41px;
+            margin: 0px 20px 0px 0px;
+            padding: 0px 0px 4px;
+        }
+
+        .tabs-nav-a-2 {
+            width: 64px;
+            height: 41px;
+            margin: 0px 20px 0px 0px;
+            padding: 0px 0px 4px;
+        }
+
+        .tabs-nav-a-1 div {
+            width: 44px;
+            height: 41px;
+            font-size: 22px;
+
+        }
+
+        .tabs-nav-a-2 div {
+            width: 44px;
+            height: 41px;
+            font-size: 22px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 15px;
+        }
+
+        .tabs-form {
+            padding: 20px 2px 0px;
+        }
+
+        .formField {
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .formField1 {
+            display: flex;
+            flex-direction: row;
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .formField1 {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .formField1 input {
+            width: 214px;
+            height: 25px;
+            padding: 30px 20px 10px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 0 0 1px transparent;
+        }
+
+        .formField1 button {
+            width: 100px;
+            height: 65px;
+            background-color: #f9f9f9;
+            color: #FF5C00;
+            border: none;
+            margin-left: 1px;
+        }
+
+        .formField1 button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .formField input {
+            width: 314px;
+            height: 25px;
+            padding: 30px 20px 10px;
+            outline: none;
+            border: none;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+            box-shadow: 0 0 0 1px transparent;
+        }
+
+        .formField input:focus {
+            box-shadow: 0 0 0 1px orangered;
+            background-color: white;
+        }
+
+        .formField1 input:focus {
+            box-shadow: 0 0 0 1px orangered;
+            background-color: white;
+        }
+
+        .formField label {
+            width: 166px;
+            height: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 25px 20px;
+            color: #00000066;
+            font-size: 16px;
+            font-weight: 600;
+            text-shadow: -1px -1px 0 #f1f1f1, 1px -1px 0 #f1f1f1, -1px 1px 0 #f1f1f1,
+                1px 1px 0 #f1f1f1;
+            transition: 0.1s ease-in-out;
+            pointer-events: none;
+        }
+
+        .formField1 label {
+            width: 166px;
+            height: 20px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            padding: 25px 20px;
+            color: #00000066;
+            font-size: 16px;
+            font-weight: 600;
+            text-shadow: -1px -1px 0 #f1f1f1, 1px -1px 0 #f1f1f1, -1px 1px 0 #f1f1f1,
+                1px 1px 0 #f1f1f1;
+            transition: 0.1s ease-in-out;
+            pointer-events: none;
+        }
+
+        .formField input:focus+label,
+        .formField input:valid+label {
+            font-size: 12px;
+            transform: translateY(-12px) translateX(-5px) scale(0.95);
+            transition: 0.1s ease-in-out;
+        }
+
+        .formField1 input:focus+label,
+        .formField1 input:valid+label {
+            font-size: 12px;
+            transform: translateY(-12px) translateX(-5px) scale(0.95);
+            transition: 0.1s ease-in-out;
+        }
+
+        .check {
+            width: 356px;
+            height: 24.8px;
+            margin: 20px 0px 0px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+        }
+
+        .check input {
+            height: 20px;
+            width: 20px;
+        }
+
+        .check span {
+            margin: 0px 4px;
+            font-size: 14px;
+            color: #AAAAAA;
+        }
+
+        .check a {
+            margin: 0px 4px;
+            font-weight: 400;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .btn button {
+            border: none;
+            margin: 20px 0px 10px;
+            font-size: 18px;
+            padding: 0px 20px;
+            width: 356px;
+            height: 60px;
+            background-color: #FF5C00;
+            opacity: 40%;
+            color: #FFFFFF;
+            border-radius: 5px;
+        }
+
+        .btn-a {
+            margin: 0px 0px 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .btn-a a {
+            font-size: 17px;
+            font-weight: 600;
+            color: #FF5C00;
+        }
+
+        .other {
+            display: flex;
+            font-weight: bold;
+            justify-content: center;
+            align-items: center;
+            width: 360px;
+            height: 40px;
+            font-size: 17px;
+            color: #AAAAAA
+        }
+
+        .other-logo {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 360px;
+            height: 52px;
+        }
+
+        .other-logo div {
+            margin: 0px 12px;
+        }
+    </style>
+</body>
+
+</html>
